@@ -14,14 +14,15 @@ export function carregarBanco(): Banco {
 }
 
 export function resetarEstado(): Estado {
-  const estado: Estado = { reembolsos: carregarBanco().reembolsos };
+  const estado: Estado = { reembolsos: carregarBanco().reembolsos, propostas: {}, aprovacoes: [] };
   salvarEstado(estado);
   return estado;
 }
 
 export function carregarEstado(): Estado {
   if (!existsSync(caminhoEstado())) return resetarEstado();
-  return JSON.parse(readFileSync(caminhoEstado(), "utf8")) as Estado;
+  const lido = JSON.parse(readFileSync(caminhoEstado(), "utf8")) as Partial<Estado>;
+  return { reembolsos: [], propostas: {}, aprovacoes: [], ...lido };
 }
 
 export function salvarEstado(estado: Estado): void {

@@ -9,7 +9,9 @@
     "anatomia": "bun run src/00-anatomia.ts",
     "cp1": "bun run src/01-chamada-unica.ts",
     "cp2": "bun run src/02-workflow.ts",
-    "cp3": "bun run src/03-agente-leitura.ts"
+    "cp3": "bun run src/03-agente-leitura.ts",
+    "cp4": "bun run src/04-autoridade.ts",
+    "aprovar": "bun run src/aprovar.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

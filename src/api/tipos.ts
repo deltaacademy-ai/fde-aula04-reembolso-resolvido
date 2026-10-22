@@ -29,8 +29,27 @@ export type Banco = {
   reembolsos: Reembolso[];
 };
 
+/** O que um humano aprova: exatamente estes campos, nada mais. */
+export type Proposta = {
+  pedidoId: number;
+  clienteId: string;
+  valor: number;
+  moeda: "BRL";
+  versaoPolitica: string;
+};
+
+export type Aprovacao = {
+  id: string;
+  hash: string;
+  aprovador: string;
+  aprovadoEm: string; // ISO
+  venceEm: string; // ISO
+};
+
 export type Estado = {
   reembolsos: Reembolso[];
+  propostas: Record<string, Proposta>; // pendentes de aprovação, por hash
+  aprovacoes: Aprovacao[];
 };
 
 export type Politica = {

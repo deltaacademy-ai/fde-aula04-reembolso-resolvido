@@ -21,6 +21,8 @@ const rede = {
 
 const mensagem = "Oi, o fone do pedido 1842 chegou quebrado. Quero meu dinheiro de volta.";
 console.log(`> ${mensagem}`);
+// parte de estado limpo: o cp4 deixa um reembolso do 1842 gravado e o workflow negaria por duplicidade
+resetarEstado();
 const decisao = await processarSolicitacao(mensagem);
 if (decisao.tipo !== "propor") throw new Error("a demo espera uma proposta");
 const proposta = criarProposta(decisao, consultarPolitica());

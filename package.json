@@ -12,7 +12,8 @@
     "cp3": "bun run src/03-agente-leitura.ts",
     "cp4": "bun run src/04-autoridade.ts",
     "aprovar": "bun run src/aprovar.ts",
-    "cp5": "bun run src/05-falha.ts"
+    "cp5": "bun run src/05-falha.ts",
+    "cp6": "bun run src/06-injecao.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

@@ -49,3 +49,32 @@ export function avaliarPedido(e: EntradaAvaliacao): Decisao {
   if (valor > politica.limiteAprovacaoHumana) return { tipo: "encaminhar", pedidoId: pedido.id, motivo: "acima_do_limite" };
   return { tipo: "propor", pedidoId: pedido.id, valor };
 }
+
+export type Violacao =
+  | "pedido_inexistente"
+  | "valor_nao_positivo"
+  | "valor_acima_do_pedido"
+  | "acima_do_limite_da_politica"
+  | "sem_aprovacao_humana";
+
+export type EntradaGuarda = {
+  pedido: Pedido | null;
+  valor: number;
+  politica: Politica;
+  // undefined = checagem de proposta (ainda não há o que aprovar); false = tentativa de executar sem aprovação.
+  aprovada?: boolean;
+};
+
+/**
+ * Guarda em código, independente do que o modelo disse. Roda na proposta e de novo na execução.
+ * Não confia em nada que veio do modelo: só em pedido, valor e política.
+ */
+export function guarda(e: EntradaGuarda): { ok: true } | { ok: false; violacoes: Violacao[] } {
+  const violacoes: Violacao[] = [];
+  if (!e.pedido) violacoes.push("pedido_inexistente");
+  if (!(e.valor > 0)) violacoes.push("valor_nao_positivo");
+  if (e.pedido && e.valor > e.pedido.valor) violacoes.push("valor_acima_do_pedido");
+  if (e.valor > e.politica.limiteAprovacaoHumana) violacoes.push("acima_do_limite_da_politica");
+  if (e.aprovada === false) violacoes.push("sem_aprovacao_humana");
+  return violacoes.length ? { ok: false, violacoes } : { ok: true };
+}

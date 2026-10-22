@@ -2,6 +2,7 @@
 import { createHash } from "node:crypto";
 import {
   consultarPedido,
+  consultarPolitica,
   executarReembolso,
   type Aprovacao,
   type Politica,
@@ -9,11 +10,11 @@ import {
   type Reembolso,
 } from "./api";
 import { carregarEstado, salvarEstado } from "./api/estado";
-import type { Decisao } from "./regras";
+import { guarda, type Decisao } from "./regras";
 
 export const VALIDADE_PADRAO_MIN = 15;
 
-export type MotivoRecusa = "sem_aprovacao_para_este_hash" | "aprovacao_vencida";
+export type MotivoRecusa = "sem_aprovacao_para_este_hash" | "aprovacao_vencida" | "violou_guarda";
 
 export class AutoridadeError extends Error {
   constructor(public motivo: MotivoRecusa, detalhe: string) {
@@ -105,6 +106,14 @@ export function verificarAprovacao(proposta: Proposta, agora = new Date()): Veri
 export function executarAprovado(proposta: Proposta, agora = new Date()): Reembolso {
   const v = verificarAprovacao(proposta, agora);
   if (!v.ok) throw new AutoridadeError(v.motivo, `hash ${hashProposta(proposta).slice(0, 12)}`);
+  // Defesa em profundidade: mesmo aprovada, a proposta passa de novo pela guarda antes de escrever.
+  const g = guarda({
+    pedido: consultarPedido(proposta.pedidoId),
+    valor: proposta.valor,
+    politica: consultarPolitica(proposta.versaoPolitica),
+    aprovada: true,
+  });
+  if (!g.ok) throw new AutoridadeError("violou_guarda", g.violacoes.join(", "));
   return executarReembolso({
     pedidoId: proposta.pedidoId,
     valor: proposta.valor,

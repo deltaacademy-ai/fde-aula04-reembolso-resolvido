@@ -7,7 +7,8 @@
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "anatomia": "bun run src/00-anatomia.ts",
-    "cp1": "bun run src/01-chamada-unica.ts"
+    "cp1": "bun run src/01-chamada-unica.ts",
+    "cp2": "bun run src/02-workflow.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

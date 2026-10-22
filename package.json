@@ -5,7 +5,8 @@
   "scripts": {
     "reset": "bun run src/api/reset.ts",
     "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "anatomia": "bun run src/00-anatomia.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

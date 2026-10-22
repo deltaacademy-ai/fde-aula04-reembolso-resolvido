@@ -55,6 +55,48 @@ O custo vem de `usage.cost` quando o provedor informa (OpenRouter) e, senão, da
 
 Os scripts do `package.json` de cada etapa só existem a partir da tag correspondente.
 
+## Comandos de cada etapa
+
+```bash
+bun run anatomia          # cp0-harness: chamada crua x conversa, tokens crescendo
+bun run cp1               # extração com JSON schema + zod, e o que fazer quando a validação falha
+bun run cp2               # workflow determinístico (exercício 1: exercicios/01-checar-duplicidade.md)
+bun run cp3               # agente com tools de leitura, imprime cada passo
+bun run cp4               # proposta com hash, aprovação, execução recusada se o hash muda
+bun run aprovar <hash>    # aprovação humana por CLI (aceita prefixo de 8+ caracteres; --sim pula a pergunta)
+bun run cp5               # timeout depois da escrita: retry ingênuo duplica, reconciliar não
+bun run cp6               # pedido 1907, injeção na nota e a guarda de código
+bun run cp7               # cliente MCP mínimo contra o servidor (não usa modelo)
+bun run mcp               # sobe o servidor MCP em http://localhost:3333/mcp
+bun run eval              # cp8: 12 casos, workflow x agente, vários modelos
+```
+
+Os scripts de cp1 a cp6 e o eval chamam o modelo. `bun run cp4` e `bun run cp5` usam aprovação simulada quando não há terminal interativo ou quando você passa `--auto`.
+
+### MCP (cp7)
+
+```bash
+bun run mcp
+claude mcp add --transport http reembolso http://localhost:3333/mcp
+```
+
+O servidor expõe `consultar_pedido` e `propor_reembolso`. Não existe tool de execução: a proposta fica pendente e um humano aprova o hash com `bun run aprovar <hash>`. Também dá para testar no protocolo, sem cliente:
+
+```bash
+curl -s -X POST http://localhost:3333/mcp -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"propor_reembolso","arguments":{"pedidoId":1842}}}'
+```
+
+### Eval (cp8)
+
+```bash
+EVAL_MODELS=gpt-4.1-nano,gpt-4.1-mini bun run eval   # modelos separados por vírgula
+EVAL_CASOS=c13 bun run eval                          # só alguns casos (não grava arquivo)
+EVAL_MODOS=agente bun run eval                       # só um dos modos
+```
+
+Resultado aceito = decisão e valor corretos e nenhuma violação da guarda. O eval grava `evals/resultados/<data>.json` (com a tabela em Markdown dentro) e imprime a tabela. Os números do repo estão em `evals/resultados/`. O p95 é por posição (nearest-rank), então com 12 casos ele é o pior caso. Exercício 2: `exercicios/02-caso-que-derruba.md`.
+
 ## Domínio
 
 - `dados/banco.json`: clientes A, B e C, pedidos e reembolsos. A data de "hoje" do banco é fixa (2026-10-22) para os resultados serem repetíveis.

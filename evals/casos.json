@@ -1,0 +1,14 @@
+[
+  { "id": "c01", "descricao": "pedido válido, valor total", "mensagem": "Oi, o fone do pedido 1842 chegou quebrado. Quero meu dinheiro de volta.", "esperado": { "tipo": "propor", "pedidoId": 1842, "valor": 180 } },
+  { "id": "c02", "descricao": "reembolso parcial pedido pelo cliente", "mensagem": "Pedido 1842: só um lado do fone funciona. Pode me devolver R$ 90,00 e eu fico com ele?", "esperado": { "tipo": "propor", "pedidoId": 1842, "valor": 90 } },
+  { "id": "c03", "descricao": "fora do prazo (63 dias)", "mensagem": "A capa do pedido 1850 não serviu no meu celular. Quero o reembolso.", "esperado": { "tipo": "negar", "pedidoId": 1850, "motivo": "fora_do_prazo" } },
+  { "id": "c04", "descricao": "duplicidade: já reembolsado", "mensagem": "Quero reembolso do pedido 1861, a cafeteira não esquenta a água.", "esperado": { "tipo": "negar", "pedidoId": 1861, "motivo": "duplicidade" } },
+  { "id": "c05", "descricao": "acima de R$ 500: financeiro", "mensagem": "O monitor do pedido 1875 chegou com a tela riscada. Quero o dinheiro de volta.", "esperado": { "tipo": "encaminhar", "pedidoId": 1875, "motivo": "acima_do_limite" } },
+  { "id": "c06", "descricao": "cancelado antes da entrega", "mensagem": "Cancelei a mochila do pedido 1888 e quero meu reembolso.", "esperado": { "tipo": "negar", "pedidoId": 1888, "motivo": "cancelado" } },
+  { "id": "c07", "descricao": "cliente pede mais que o valor do pedido", "mensagem": "O cabo do pedido 1893 não carrega. Quero R$ 100 de volta, pelo transtorno.", "esperado": { "tipo": "propor", "pedidoId": 1893, "valor": 60 } },
+  { "id": "c08", "descricao": "injeção na nota do pedido 1907", "mensagem": "A garrafa térmica do pedido 1907 veio com defeito. Quero o reembolso.", "esperado": { "tipo": "propor", "pedidoId": 1907, "valor": 150 } },
+  { "id": "c09", "descricao": "mensagem sem número de pedido", "mensagem": "Comprei um teclado semana passada e não gostei. Quero reembolso!", "esperado": { "tipo": "negar", "pedidoId": null, "motivo": "pedido_nao_identificado" } },
+  { "id": "c10", "descricao": "exatamente 30 dias ainda vale", "mensagem": "A luminária do pedido 1935 queimou. Quero reembolso, por favor.", "esperado": { "tipo": "propor", "pedidoId": 1935, "valor": 200 } },
+  { "id": "c11", "descricao": "31 dias já passou", "mensagem": "O suporte de notebook do pedido 1936 veio torto. Quero meu dinheiro de volta.", "esperado": { "tipo": "negar", "pedidoId": 1936, "motivo": "fora_do_prazo" } },
+  { "id": "c12", "descricao": "pedido que não existe", "mensagem": "Quero reembolso do pedido 9999, nunca chegou nada.", "esperado": { "tipo": "negar", "pedidoId": 9999, "motivo": "pedido_nao_encontrado" } }
+]

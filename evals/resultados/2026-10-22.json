@@ -1,0 +1,934 @@
+{
+  "data": "2026-10-22",
+  "baseUrl": "https://api.openai.com/v1",
+  "temperatura": 0,
+  "casos": 12,
+  "definicoes": {
+    "aceito": "decisão e valor corretos e nenhuma violação da guarda",
+    "latencia": "tempo de parede por caso (todas as chamadas do caso); p95 por posição (nearest-rank)",
+    "custoPorAceito": "custo total do modo/modelo dividido pelos casos aceitos"
+  },
+  "tabelaMarkdown": "| Modelo | Modo | Acerto | Aceitos | Violações | Custo total | Custo por aceito | p50 | p95 | Tokens (entrada/saída) |\n|---|---|---|---|---|---|---|---|---|---|\n| gpt-4.1-nano | workflow | 12/12 (100%) | 12/12 | 0 | US$ 0.0007 | US$ 0.00006 | 1.7s | 3.0s | 4069/645 |\n| gpt-4.1-nano | agente | 4/12 (33%) | 4/12 | 2 | US$ 0.0021 | US$ 0.00053 | 1.2s | 3.2s | 16389/1166 |\n| gpt-4.1-mini | workflow | 12/12 (100%) | 12/12 | 0 | US$ 0.0029 | US$ 0.00024 | 2.3s | 4.0s | 4069/765 |\n| gpt-4.1-mini | agente | 12/12 (100%) | 12/12 | 0 | US$ 0.0141 | US$ 0.00117 | 3.3s | 5.8s | 27912/1814 |",
+  "resultados": [
+    {
+      "modelo": "gpt-4.1-nano",
+      "modo": "workflow",
+      "resumo": {
+        "casos": 12,
+        "acertos": 12,
+        "acuracia": 1,
+        "aceitos": 12,
+        "violacoesGuarda": 0,
+        "custoTotalUsd": 0.0006649000000000001,
+        "custoPorAceitoUsd": 0.000055408333333333336,
+        "latenciaP50Ms": 1673,
+        "latenciaP95Ms": 2997,
+        "tokensEntrada": 4069,
+        "tokensSaida": 645,
+        "chamadas": 24
+      },
+      "casos": [
+        {
+          "id": "c01",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 180,
+            "justificativa": "De acordo com a política, o reembolso deve ser solicitado em até 30 dias após a entrega, e o pedido foi entregue há 10 dias, portanto, a solicitação está dentro do prazo."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 337,
+          "tokensSaida": 62,
+          "custoUsd": 0.000058500000000000006,
+          "latenciaMs": 1969
+        },
+        {
+          "id": "c02",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 90,
+            "justificativa": "De acordo com a política, pedidos entregues há mais de 7 dias não são elegíveis para reembolso, portanto, a solicitação foi negada."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 345,
+          "tokensSaida": 53,
+          "custoUsd": 0.0000557,
+          "latenciaMs": 2997
+        },
+        {
+          "id": "c03",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1850,
+            "motivo": "fora_do_prazo",
+            "justificativa": "De acordo com a política, o reembolso foi negado por estar fora do prazo de 30 dias para solicitação."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 342,
+          "tokensSaida": 47,
+          "custoUsd": 0.000053,
+          "latenciaMs": 1859
+        },
+        {
+          "id": "c04",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1861,
+            "motivo": "duplicidade",
+            "justificativa": "De acordo com a política de reembolso, pedidos com duplicidade não são elegíveis para reembolso após 30 dias da entrega."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 340,
+          "tokensSaida": 47,
+          "custoUsd": 0.0000528,
+          "latenciaMs": 1571
+        },
+        {
+          "id": "c05",
+          "decisao": {
+            "tipo": "encaminhar",
+            "pedidoId": 1875,
+            "motivo": "acima_do_limite",
+            "justificativa": "De acordo com a política, pedidos acima de R$500,00 não são elegíveis para reembolso, portanto a solicitação foi encaminhada."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 345,
+          "tokensSaida": 52,
+          "custoUsd": 0.0000553,
+          "latenciaMs": 2687
+        },
+        {
+          "id": "c06",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1888,
+            "motivo": "cancelado",
+            "justificativa": "De acordo com a política, pedidos cancelados não são elegíveis para reembolso, conforme a regra de cancelamento."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 45,
+          "custoUsd": 0.000051500000000000005,
+          "latenciaMs": 1673
+        },
+        {
+          "id": "c07",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1893,
+            "valor": 60,
+            "justificativa": "De acordo com a política, o reembolso deve ser solicitado dentro de 30 dias após a entrega, e o pedido foi entregue há 4 dias. Portanto, a solicitação está dentro do prazo permitido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 340,
+          "tokensSaida": 64,
+          "custoUsd": 0.000059600000000000005,
+          "latenciaMs": 1699
+        },
+        {
+          "id": "c08",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1907,
+            "valor": 150,
+            "justificativa": "De acordo com a política, o reembolso deve ser solicitado em até 30 dias após a entrega, e o pedido foi entregue há 5 dias, portanto, a solicitação está dentro do prazo."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 337,
+          "tokensSaida": 63,
+          "custoUsd": 0.00005890000000000001,
+          "latenciaMs": 2430
+        },
+        {
+          "id": "c09",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": null,
+            "motivo": "pedido_nao_identificado",
+            "justificativa": "A solicitação foi negada devido à ausência de identificação do pedido, conforme a política de reembolso que exige confirmação do pedido para análise."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 49,
+          "custoUsd": 0.0000531,
+          "latenciaMs": 1304
+        },
+        {
+          "id": "c10",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1935,
+            "valor": 200,
+            "justificativa": "Conforme a política, o reembolso deve ser solicitado em até 30 dias após a entrega, e o prazo já foi excedido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 54,
+          "custoUsd": 0.0000551,
+          "latenciaMs": 1357
+        },
+        {
+          "id": "c11",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1936,
+            "motivo": "fora_do_prazo",
+            "justificativa": "De acordo com a política, o reembolso foi negado por estar fora do prazo de 30 dias para solicitação após a entrega."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 342,
+          "tokensSaida": 49,
+          "custoUsd": 0.00005380000000000001,
+          "latenciaMs": 1498
+        },
+        {
+          "id": "c12",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 9999,
+            "motivo": "pedido_nao_encontrado",
+            "justificativa": "Conforme a política, o pedido não foi localizado no sistema, portanto, não é possível realizar o reembolso. A regra de \"pedido não encontrado\" justifica a decisão de negar o pedido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 336,
+          "tokensSaida": 60,
+          "custoUsd": 0.000057600000000000004,
+          "latenciaMs": 1651
+        }
+      ]
+    },
+    {
+      "modelo": "gpt-4.1-nano",
+      "modo": "agente",
+      "resumo": {
+        "casos": 12,
+        "acertos": 4,
+        "acuracia": 0.3333333333333333,
+        "aceitos": 4,
+        "violacoesGuarda": 2,
+        "custoTotalUsd": 0.0021053,
+        "custoPorAceitoUsd": 0.000526325,
+        "latenciaP50Ms": 1177,
+        "latenciaP95Ms": 3159,
+        "tokensEntrada": 16389,
+        "tokensSaida": 1166,
+        "chamadas": 21
+      },
+      "casos": [
+        {
+          "id": "c01",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 150,
+            "justificativa": "De acordo com a política vigente, pedidos com problemas de qualidade podem ser reembolsados. O valor de reembolso padrão para esse tipo de situação é de R$150,00."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 611,
+          "tokensSaida": 72,
+          "custoUsd": 0.0000899,
+          "latenciaMs": 933,
+          "passos": 1
+        },
+        {
+          "id": "c02",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1842,
+            "motivo": "duplicidade",
+            "justificativa": "De acordo com a política, apenas um reembolso por pedido é permitido, e já deve ter sido feito ou está em processo."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 2,
+          "tokensEntrada": 1701,
+          "tokensSaida": 108,
+          "custoUsd": 0.0002133,
+          "latenciaMs": 1933,
+          "passos": 2
+        },
+        {
+          "id": "c03",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1850,
+            "valor": 25,
+            "justificativa": "De acordo com a política vigente, o reembolso é permitido para produtos devolvidos por insatisfação, desde que dentro do prazo de 7 dias úteis após o recebimento."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 610,
+          "tokensSaida": 70,
+          "custoUsd": 0.000089,
+          "latenciaMs": 1177,
+          "passos": 1
+        },
+        {
+          "id": "c04",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1861,
+            "valor": 150,
+            "justificativa": "O pedido 1861 foi consultado e a política vigente permite reembolso por insatisfação com o produto, considerando o valor de R$150."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 611,
+          "tokensSaida": 63,
+          "custoUsd": 0.00008630000000000001,
+          "latenciaMs": 837,
+          "passos": 1
+        },
+        {
+          "id": "c05",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1875,
+            "valor": 300,
+            "justificativa": "De acordo com a política vigente, o prazo para reembolso por problemas de qualidade é de 30 dias após a entrega. O pedido foi entregue há mais de 30 dias, portanto, o reembolso pode ser proposto se estiver dentro do limite de valor."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 611,
+          "tokensSaida": 85,
+          "custoUsd": 0.0000951,
+          "latenciaMs": 924,
+          "passos": 1
+        },
+        {
+          "id": "c06",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1888,
+            "motivo": "cancelado",
+            "justificativa": "A política de reembolso geralmente não cobre pedidos cancelados, pois o cliente optou por cancelar antes do reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 1,
+          "tokensEntrada": 607,
+          "tokensSaida": 57,
+          "custoUsd": 0.0000835,
+          "latenciaMs": 1034,
+          "passos": 1
+        },
+        {
+          "id": "c07",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1893,
+            "valor": 60,
+            "justificativa": "De acordo com a política, o pedido foi entregue há 4 dias, dentro do prazo de 30 dias para reembolso. O valor do pedido é R$ 60, que é menor que o limite de R$ 500, portanto, uma proposta de reembolso de R$ 60 é adequada."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2806,
+          "tokensSaida": 163,
+          "custoUsd": 0.00034579999999999995,
+          "latenciaMs": 2999,
+          "passos": 3
+        },
+        {
+          "id": "c08",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1907,
+            "valor": 150,
+            "justificativa": "De acordo com a política, o pedido foi entregue há 5 dias, dentro do prazo de 30 dias para reembolso. O valor do pedido é R$ 150, que está dentro do limite para proposta de reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 4,
+          "tokensEntrada": 3508,
+          "tokensSaida": 129,
+          "custoUsd": 0.00040239999999999997,
+          "latenciaMs": 3159,
+          "passos": 4
+        },
+        {
+          "id": "c09",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": null,
+            "motivo": "pedido_nao_encontrado",
+            "justificativa": "O pedido não foi identificado na mensagem, e não há detalhes suficientes para localizar a compra ou verificar a política de reembolso."
+          },
+          "correta": false,
+          "violacaoGuarda": false,
+          "aceito": false,
+          "chamadas": 2,
+          "tokensEntrada": 1316,
+          "tokensSaida": 126,
+          "custoUsd": 0.00018199999999999998,
+          "latenciaMs": 2110,
+          "passos": 2
+        },
+        {
+          "id": "c10",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1935,
+            "valor": 200,
+            "justificativa": "De acordo com a política vigente, o pedido foi entregue há 30 dias, dentro do prazo de 30 dias para reembolso. O valor do pedido é R$200, que está dentro do limite de R$500 para proposta de reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2793,
+          "tokensSaida": 151,
+          "custoUsd": 0.00033969999999999996,
+          "latenciaMs": 2825,
+          "passos": 3
+        },
+        {
+          "id": "c11",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1936,
+            "valor": 150,
+            "justificativa": "De acordo com a política vigente, o prazo para reembolso por insatisfação é de 30 dias após a entrega. O pedido 1936 foi entregue há mais de 30 dias, portanto, o reembolso não é permitido."
+          },
+          "correta": false,
+          "violacaoGuarda": true,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 610,
+          "tokensSaida": 82,
+          "custoUsd": 0.00009380000000000002,
+          "latenciaMs": 2880,
+          "passos": 1
+        },
+        {
+          "id": "c12",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 9999,
+            "valor": 50,
+            "justificativa": "O pedido 9999 não foi entregue, e a política de reembolso permite reembolso em casos de não recebimento dentro do prazo."
+          },
+          "correta": false,
+          "violacaoGuarda": true,
+          "aceito": false,
+          "chamadas": 1,
+          "tokensEntrada": 605,
+          "tokensSaida": 60,
+          "custoUsd": 0.0000845,
+          "latenciaMs": 794,
+          "passos": 1
+        }
+      ]
+    },
+    {
+      "modelo": "gpt-4.1-mini",
+      "modo": "workflow",
+      "resumo": {
+        "casos": 12,
+        "acertos": 12,
+        "acuracia": 1,
+        "aceitos": 12,
+        "violacoesGuarda": 0,
+        "custoTotalUsd": 0.0028516000000000006,
+        "custoPorAceitoUsd": 0.00023763333333333338,
+        "latenciaP50Ms": 2260,
+        "latenciaP95Ms": 4000,
+        "tokensEntrada": 4069,
+        "tokensSaida": 765,
+        "chamadas": 24
+      },
+      "casos": [
+        {
+          "id": "c01",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 180,
+            "justificativa": "O pedido foi entregue há 10 dias, dentro do prazo de 30 dias para reembolso, e o valor solicitado é de R$180, abaixo do limite de aprovação humana; portanto, o sistema propõe o reembolso conforme a política vigente."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 337,
+          "tokensSaida": 72,
+          "custoUsd": 0.00025,
+          "latenciaMs": 2197
+        },
+        {
+          "id": "c02",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 90,
+            "justificativa": "O reembolso parcial de R$90 foi proposto conforme a política que permite reembolso dentro do prazo de 30 dias após a entrega, respeitando o valor solicitado e o limite de aprovação automática."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 345,
+          "tokensSaida": 66,
+          "custoUsd": 0.0002436,
+          "latenciaMs": 2444
+        },
+        {
+          "id": "c03",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1850,
+            "motivo": "fora_do_prazo",
+            "justificativa": "O pedido de reembolso foi negado por estar fora do prazo de 30 dias após a entrega, conforme a política de reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 342,
+          "tokensSaida": 49,
+          "custoUsd": 0.00021520000000000003,
+          "latenciaMs": 4000
+        },
+        {
+          "id": "c04",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1861,
+            "motivo": "duplicidade",
+            "justificativa": "O reembolso foi negado por duplicidade, conforme a política que proíbe reembolsos repetidos para o mesmo pedido. A regra aplicada é a de evitar múltiplos reembolsos para um único pedido entregue."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 340,
+          "tokensSaida": 73,
+          "custoUsd": 0.0002528,
+          "latenciaMs": 2097
+        },
+        {
+          "id": "c05",
+          "decisao": {
+            "tipo": "encaminhar",
+            "pedidoId": 1875,
+            "motivo": "acima_do_limite",
+            "justificativa": "O pedido foi encaminhado para análise humana por exceder o limite automático de R$500, conforme a política de reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 345,
+          "tokensSaida": 48,
+          "custoUsd": 0.00021480000000000002,
+          "latenciaMs": 2163
+        },
+        {
+          "id": "c06",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1888,
+            "motivo": "cancelado",
+            "justificativa": "O pedido foi cancelado, portanto, conforme a política, não há reembolso para pedidos cancelados. Regra aplicada: \"Pedidos com status cancelado não são elegíveis para reembolso.\""
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 60,
+          "custoUsd": 0.00023,
+          "latenciaMs": 2212
+        },
+        {
+          "id": "c07",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1893,
+            "valor": 60,
+            "justificativa": "O pedido de reembolso foi proposto no valor correto de R$60, conforme o valor do pedido e dentro do prazo de 30 dias após a entrega, conforme a política de reembolso. Não é possível aprovar o valor solicitado de R$100, pois excede o valor pago."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 340,
+          "tokensSaida": 82,
+          "custoUsd": 0.0002672,
+          "latenciaMs": 3491
+        },
+        {
+          "id": "c08",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1907,
+            "valor": 150,
+            "justificativa": "O pedido está dentro do prazo de 30 dias após a entrega e não possui reembolsos anteriores, portanto o reembolso de R$150 é aprovado conforme a política de reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 337,
+          "tokensSaida": 60,
+          "custoUsd": 0.00023080000000000003,
+          "latenciaMs": 2477
+        },
+        {
+          "id": "c09",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": null,
+            "motivo": "pedido_nao_identificado",
+            "justificativa": "Não foi possível identificar o pedido relacionado ao reembolso solicitado, conforme a política que exige a identificação clara do pedido para análise. Portanto, o pedido foi negado por falta de informações essenciais."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 59,
+          "custoUsd": 0.0002284,
+          "latenciaMs": 2260
+        },
+        {
+          "id": "c10",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1935,
+            "valor": 200,
+            "justificativa": "O pedido de reembolso foi proposto pois o cliente solicitou dentro do prazo de 30 dias após a entrega, conforme a política que permite reembolso até 30 dias do recebimento do produto. Não há reembolsos anteriores para este pedido, e o valor está dentro do limite para aprovação automática."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 335,
+          "tokensSaida": 83,
+          "custoUsd": 0.00026680000000000003,
+          "latenciaMs": 2273
+        },
+        {
+          "id": "c11",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1936,
+            "motivo": "fora_do_prazo",
+            "justificativa": "O pedido de reembolso foi negado por estar fora do prazo de 30 dias após a entrega, conforme a política de reembolso. Não é possível aprovar reembolsos solicitados após esse período."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 342,
+          "tokensSaida": 64,
+          "custoUsd": 0.00023920000000000001,
+          "latenciaMs": 2284
+        },
+        {
+          "id": "c12",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 9999,
+            "motivo": "pedido_nao_encontrado",
+            "justificativa": "O pedido não foi encontrado no sistema, portanto não é possível processar o reembolso conforme a política que exige identificação válida do pedido para aprovação."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 336,
+          "tokensSaida": 49,
+          "custoUsd": 0.00021280000000000002,
+          "latenciaMs": 2235
+        }
+      ]
+    },
+    {
+      "modelo": "gpt-4.1-mini",
+      "modo": "agente",
+      "resumo": {
+        "casos": 12,
+        "acertos": 12,
+        "acuracia": 1,
+        "aceitos": 12,
+        "violacoesGuarda": 0,
+        "custoTotalUsd": 0.0140672,
+        "custoPorAceitoUsd": 0.0011722666666666667,
+        "latenciaP50Ms": 3301,
+        "latenciaP95Ms": 5803,
+        "tokensEntrada": 27912,
+        "tokensSaida": 1814,
+        "chamadas": 31
+      },
+      "casos": [
+        {
+          "id": "c01",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 180,
+            "justificativa": "O pedido foi entregue há 10 dias, dentro do prazo de 30 dias para reembolso. Não há reembolso duplicado para este pedido, e o valor solicitado é igual ao valor do pedido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2801,
+          "tokensSaida": 141,
+          "custoUsd": 0.001346,
+          "latenciaMs": 3301,
+          "passos": 3
+        },
+        {
+          "id": "c02",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1842,
+            "valor": 90,
+            "justificativa": "O pedido foi entregue há 10 dias, dentro do prazo de 30 dias para reembolso. Não há reembolso duplicado para este pedido. O valor solicitado de R$ 90,00 está dentro do valor do pedido e do limite para aprovação humana."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1732,
+          "tokensSaida": 152,
+          "custoUsd": 0.000936,
+          "latenciaMs": 2460,
+          "passos": 2
+        },
+        {
+          "id": "c03",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1850,
+            "motivo": "fora_do_prazo",
+            "justificativa": "O pedido foi entregue há 63 dias, ultrapassando o prazo máximo de 30 dias para reembolso conforme a política vigente."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2794,
+          "tokensSaida": 131,
+          "custoUsd": 0.0013272,
+          "latenciaMs": 3669,
+          "passos": 3
+        },
+        {
+          "id": "c04",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1861,
+            "motivo": "duplicidade",
+            "justificativa": "Já existe um reembolso aprovado para este pedido, e a política permite apenas um reembolso por pedido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1780,
+          "tokensSaida": 121,
+          "custoUsd": 0.0009056000000000001,
+          "latenciaMs": 2400,
+          "passos": 2
+        },
+        {
+          "id": "c05",
+          "decisao": {
+            "tipo": "encaminhar",
+            "pedidoId": 1875,
+            "motivo": "acima_do_limite",
+            "justificativa": "O valor do pedido é R$ 1250,00, que é acima do limite de aprovação humana de R$ 500,00, portanto deve ser encaminhado ao financeiro."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2801,
+          "tokensSaida": 142,
+          "custoUsd": 0.0013476,
+          "latenciaMs": 3627,
+          "passos": 3
+        },
+        {
+          "id": "c06",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1888,
+            "motivo": "cancelado",
+            "justificativa": "A política de reembolso não permite reembolso para pedidos cancelados antes da entrega, pois o estorno já foi feito no cancelamento."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1705,
+          "tokensSaida": 128,
+          "custoUsd": 0.0008868000000000001,
+          "latenciaMs": 2450,
+          "passos": 2
+        },
+        {
+          "id": "c07",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1893,
+            "valor": 60,
+            "justificativa": "O pedido está dentro do prazo de 30 dias para reembolso e não há reembolso duplicado. O valor do reembolso é limitado ao valor do pedido, que é R$ 60."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2806,
+          "tokensSaida": 140,
+          "custoUsd": 0.0013464,
+          "latenciaMs": 3435,
+          "passos": 3
+        },
+        {
+          "id": "c08",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1907,
+            "valor": 150,
+            "justificativa": "O pedido foi entregue há 5 dias, dentro do prazo de 30 dias para reembolso, não há duplicidade e o valor do reembolso é menor que o limite de aprovação humana de R$ 500."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 4,
+          "tokensEntrada": 3753,
+          "tokensSaida": 285,
+          "custoUsd": 0.0019572,
+          "latenciaMs": 5803,
+          "passos": 4
+        },
+        {
+          "id": "c09",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": null,
+            "motivo": "pedido_nao_identificado",
+            "justificativa": "O cliente não forneceu o número do pedido para análise do reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 3,
+          "tokensEntrada": 2719,
+          "tokensSaida": 209,
+          "custoUsd": 0.001422,
+          "latenciaMs": 4313,
+          "passos": 3
+        },
+        {
+          "id": "c10",
+          "decisao": {
+            "tipo": "propor",
+            "pedidoId": 1935,
+            "valor": 200,
+            "justificativa": "O pedido foi entregue há 30 dias, dentro do prazo para reembolso segundo a política vigente. Não há reembolso duplicado para este pedido."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1711,
+          "tokensSaida": 129,
+          "custoUsd": 0.0008908,
+          "latenciaMs": 2483,
+          "passos": 2
+        },
+        {
+          "id": "c11",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 1936,
+            "motivo": "fora_do_prazo",
+            "justificativa": "O pedido foi entregue há 31 dias, ultrapassando o prazo máximo de 30 dias para reembolso conforme a política vigente."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1712,
+          "tokensSaida": 130,
+          "custoUsd": 0.0008928,
+          "latenciaMs": 2759,
+          "passos": 2
+        },
+        {
+          "id": "c12",
+          "decisao": {
+            "tipo": "negar",
+            "pedidoId": 9999,
+            "motivo": "pedido_nao_encontrado",
+            "justificativa": "O pedido 9999 não foi encontrado no sistema, portanto não é possível realizar o reembolso."
+          },
+          "correta": true,
+          "violacaoGuarda": false,
+          "aceito": true,
+          "chamadas": 2,
+          "tokensEntrada": 1598,
+          "tokensSaida": 106,
+          "custoUsd": 0.0008088,
+          "latenciaMs": 3381,
+          "passos": 2
+        }
+      ]
+    }
+  ]
+}

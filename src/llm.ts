@@ -53,7 +53,7 @@ export function silenciar(valor: boolean) {
 
 export function formatarChamada(c: Chamada): string {
   return (
-    `[llm] ${c.rotulo.padEnd(14)} modelo=${c.modelo} entrada=${c.tokensEntrada} saida=${c.tokensSaida} ` +
+    `[llm] ${c.rotulo.padEnd(15)} modelo=${c.modelo} entrada=${c.tokensEntrada} saida=${c.tokensSaida} ` +
     `custo=${formatarCusto(c.custoUsd)} latencia=${c.latenciaMs}ms`
   );
 }

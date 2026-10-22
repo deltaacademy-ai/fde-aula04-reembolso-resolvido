@@ -20,8 +20,9 @@ export const arredondar = (n: number) => Math.round(n * 100) / 100;
 
 /** Exercício 1. Já existe reembolso para este pedido? (regra 2 da política: um reembolso por pedido) */
 export function checarDuplicidade(pedidoId: number): { duplicado: boolean; reembolsos: Reembolso[] } {
-  const reembolsos = listarReembolsosDoPedido(pedidoId);
-  return { duplicado: reembolsos.length > 0, reembolsos };
+  // Exercício 1: consulte os reembolsos já feitos para o pedido e devolva { duplicado, reembolsos }.
+  // Enunciado em exercicios/01-checar-duplicidade.md. Pronto quando `bun test` ficar verde.
+  throw new Error(`Exercício 1: implemente checarDuplicidade (pedido ${pedidoId})`);
 }
 
 export type EntradaAvaliacao = {

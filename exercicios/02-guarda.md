@@ -29,6 +29,8 @@ bun test test/guarda.test.ts
 bun run cp6     # usa a sua chave: veja o modelo cair na injeção e a guarda barrar
 ```
 
+Ficam verdes 5 dos 7 testes. Os 2 últimos passam pelo executor, que depende do Exercício 3: eles ficam verdes lá.
+
 ## Para pensar
 
 - Por que `!(valor > 0)` e não `valor <= 0`? (Pense em `NaN`.)

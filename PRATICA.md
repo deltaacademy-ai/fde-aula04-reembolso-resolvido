@@ -27,13 +27,13 @@ No Windows, use WSL ou Git Bash. Os testes nunca chamam modelo e rodam sem chave
 | Tempo | Exercício | Conceito | Arquivo | Pronto quando |
 |---|---|---|---|---|
 | 0:10 a 0:25 | [1. checarDuplicidade](exercicios/01-checar-duplicidade.md) | regra de negócio em código, não no modelo | `src/regras.ts` | `bun test test/regras.test.ts` verde, `bun run cp2` |
-| 0:25 a 0:40 | [2. guarda](exercicios/02-guarda.md) | injeção de prompt e guarda em código | `src/regras.ts` | `bun test test/guarda.test.ts` verde, `bun run cp6` |
-| 0:40 a 1:00 | [3. verificarAprovacao](exercicios/03-aprovacao-pelo-hash.md) | pessoa no circuito, aprovação presa ao hash | `src/autoridade.ts` | `bun test test/autoridade.test.ts` verde, `bun run cp4` |
+| 0:25 a 0:40 | [2. guarda](exercicios/02-guarda.md) | injeção de prompt e guarda em código | `src/regras.ts` | 5 de 7 testes de `test/guarda.test.ts` verdes (os 2 do executor fecham no Exercício 3), `bun run cp6` |
+| 0:40 a 1:00 | [3. verificarAprovacao](exercicios/03-aprovacao-pelo-hash.md) | pessoa no circuito, aprovação presa ao hash | `src/autoridade.ts` | `bun test test/autoridade.test.ts test/guarda.test.ts` verde, `bun run cp4` |
 | 1:00 a 1:15 | [4. reconciliar](exercicios/04-reconciliar.md) | timeout depois da escrita, idempotência | `src/reconciliar.ts` | `bun test` todo verde, `bun run cp5` |
 | 1:15 a 1:35 | [5. O caso que derruba](exercicios/05-caso-que-derruba.md) | eval: workflow contra agente, com a sua chave | `evals/casos.json` | seu `c13` roda e você sabe dizer quem errou e onde |
 | 1:35 a 2:00 | [6. ADR](exercicios/06-adr.md) | decidir com número | `docs/adr/` | ADR escrito e revisado em dupla |
 
-A ordem importa: o executor usa a guarda, e o workflow e o eval usam a checagem de duplicidade. Fazendo na ordem, cada teste fica verde no seu exercício.
+A ordem importa: o executor usa a guarda, e o workflow e o eval usam a checagem de duplicidade. Fazendo na ordem, a contagem de `bun test` vai de 39 falhas a zero: 18 depois do Exercício 1, 13 depois do 2, 2 depois do 3 e zero no 4.
 
 ## Fim da prática
 

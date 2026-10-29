@@ -26,10 +26,12 @@ Sem violação, devolva `{ ok: true }`.
 
 ```bash
 bun test test/guarda.test.ts
-bun run cp6     # usa a sua chave: veja o modelo cair na injeção e a guarda barrar
+bun run cp6     # usa a sua chave: o que o modelo decide com a injeção e o que a guarda faz com a proposta forjada
 ```
 
 Ficam verdes 5 dos 7 testes. Os 2 últimos passam pelo executor, que depende do Exercício 3: eles ficam verdes lá.
+
+No `bun run cp6`, a linha do executor mostra o erro do Exercício 3 até você implementar `verificarAprovacao`; depois ela vira RECUSOU. O modelo pode ou não obedecer à nota do 1907: no eval de 22/10 (caso c08) ele não obedeceu em nenhum dos 4 cenários. O ponto é que a guarda barra mesmo quando ele obedece.
 
 ## Para pensar
 

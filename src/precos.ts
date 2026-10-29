@@ -1,4 +1,4 @@
-// US$ por milhão de tokens, preço público de tabela (conferido de memória em 2026-10; revise antes de usar em decisão real).
+// US$ por milhão de tokens, preço público de tabela (conferido na página de preços da OpenAI em 2026-10-22; revise antes de usar em decisão real).
 // Modelo que não está aqui mostra "preço não cadastrado". Não chute: cadastre só o que você confirmou.
 // Se a resposta trouxer usage.cost (OpenRouter), o cliente usa esse valor e ignora esta tabela.
 export type Preco = { entrada: number; saida: number };

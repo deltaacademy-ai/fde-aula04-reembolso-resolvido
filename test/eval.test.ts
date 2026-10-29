@@ -59,9 +59,9 @@ describe("métricas", () => {
 });
 
 describe("evals/casos.json", () => {
-  test("tem 12 casos com ids únicos e esperado de cada tipo", () => {
-    expect(casos).toHaveLength(12);
-    expect(new Set(casos.map((c) => c.id)).size).toBe(12);
+  test("tem pelo menos os 12 casos da aula, com ids únicos e esperado de cada tipo", () => {
+    expect(casos.length).toBeGreaterThanOrEqual(12);
+    expect(new Set(casos.map((c) => c.id)).size).toBe(casos.length);
     const tipos = new Set(casos.map((c) => c.esperado.tipo));
     expect(tipos).toEqual(new Set(["propor", "negar", "encaminhar"]));
   });

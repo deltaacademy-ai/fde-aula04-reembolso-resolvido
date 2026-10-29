@@ -5,7 +5,7 @@ Encontro de 2 horas. Você parte do repo **inicial**, que tem o caso inteiro mon
 - Inicial: https://github.com/deltaacademy-ai/fde-aula04-reembolso-inicial
 - Resolvido (tudo pronto, com as tags `cp0` a `cp8`): https://github.com/deltaacademy-ai/fde-aula04-reembolso-resolvido
 
-Travou? Compare com o mesmo arquivo no resolvido e siga. A prática é sobre entender a decisão, não sobre digitar.
+Travou? Compare com o mesmo arquivo no resolvido (`../fde-aula04-reembolso-resolvido`) e siga. Site com o passo a passo, comandos e explicações: https://fde-aula04-pratica.vercel.app A prática é sobre entender a decisão, não sobre digitar.
 
 ## Antes de começar (10 min)
 
@@ -13,6 +13,7 @@ Cada um usa a própria chave. OpenRouter é o padrão; OpenAI direto também ser
 
 ```bash
 git clone https://github.com/deltaacademy-ai/fde-aula04-reembolso-inicial
+git clone https://github.com/deltaacademy-ai/fde-aula04-reembolso-resolvido   # só para consulta
 cd fde-aula04-reembolso-inicial
 bun install
 cp .env.example .env      # preencha LLM_API_KEY com a SUA chave; o .env nunca é commitado

@@ -1,13 +1,18 @@
-# Reembolso: do prompt ao agente com autoridade (Aula 04, FDE)
+# Reembolso: do prompt ao agente com autoridade (Aula 04, FDE, resolvido)
 
-Repo de aula. O caso é fictício: um atendente pede reembolso de pedido, e a gente vai de uma chamada de modelo até um agente que propõe, um humano aprova e o código executa, sem duplicar nem obedecer injeção. Nenhum dado, nome ou política aqui é real.
+Repo de aula da formação FDE da Delta Academy. O caso é fictício: um atendente pede reembolso de pedido, e a gente vai de uma chamada de modelo até um agente que propõe, um humano aprova e o código executa, sem duplicar nem obedecer injeção. Nenhum dado, nome ou política aqui é real.
 
-Cada etapa é uma tag cumulativa. Quem travar volta para a tag anterior (ou avança para a próxima) com `git checkout <tag>`.
+Este é o repo **resolvido**: tudo pronto, com as soluções da prática. A prática começa no repo inicial, que tem as mesmas peças em branco:
+
+- Inicial: https://github.com/deltaacademy-ai/fde-aula04-reembolso-inicial
+- Roteiro da prática: [`PRATICA.md`](PRATICA.md). Soluções comentadas: [`exercicios/solucoes.md`](exercicios/solucoes.md). ADR de exemplo: [`docs/adr/`](docs/adr/0001-workflow-para-proposta-de-reembolso.md).
+
+Cada etapa da aula é uma tag cumulativa (`cp0` a `cp8`). Para ver uma etapa isolada, `git checkout <tag>`; para ver o que ela acrescentou, `git diff <tag anterior> <tag>`.
 
 ## Pré-requisitos
 
 - [Bun](https://bun.sh) 1.3 ou mais novo.
-- Uma chave de API compatível com OpenAI (OpenRouter por padrão, OpenAI direto também serve).
+- A sua chave de API compatível com OpenAI (OpenRouter por padrão, OpenAI direto também serve). Ponha um limite de gasto baixo nela.
 
 ```bash
 bun install
@@ -45,13 +50,13 @@ O custo vem de `usage.cost` quando o provedor informa (OpenRouter) e, senão, da
 | `cp0` | Repo "cru" do cliente: API simulada, dados, política, cliente de LLM, testes. Sem AGENTS.md nem rules | `bun test` |
 | `cp0-harness` | Parte 1: AGENTS.md, rules, skill `nova-tool`, spec do reembolso (PRD, tech spec, tasks). Mais a anatomia de uma chamada | `bun run anatomia` |
 | `cp1` | Uma chamada extrai dados de mensagem livre com JSON schema, validada com zod | `bun run cp1` |
-| `cp2` | Workflow determinístico: o código conduz, o modelo só extrai e redige. Exercício 1 | `bun run cp2` |
+| `cp2` | Workflow determinístico: o código conduz, o modelo só extrai e redige | `bun run cp2` |
 | `cp3` | Agente de leitura: loop com tools só de leitura, limite de passos, saída estruturada | `bun run cp3` |
 | `cp4` | Autoridade: proposta com hash, aprovação humana ligada ao hash, executor que confere | `bun run cp4`, `bun run aprovar <hash>` |
 | `cp5` | Idempotência e falha: timeout depois da escrita, retry ingênuo duplica, reconciliar não | `bun run cp5` |
 | `cp6` | Injeção de prompt no pedido 1907 e a guarda em código | `bun run cp6` |
 | `cp7` | Servidor MCP HTTP com `consultar_pedido` e `propor_reembolso` | `bun run mcp` |
-| `cp8` | Eval: 12 casos, workflow contra agente, vários modelos. Exercício 2 | `bun run eval` |
+| `cp8` | Eval: 12 casos, workflow contra agente, vários modelos | `bun run eval` |
 
 Os scripts do `package.json` de cada etapa só existem a partir da tag correspondente.
 
@@ -60,7 +65,7 @@ Os scripts do `package.json` de cada etapa só existem a partir da tag correspon
 ```bash
 bun run anatomia          # cp0-harness: chamada crua x conversa, tokens crescendo
 bun run cp1               # extração com JSON schema + zod, e o que fazer quando a validação falha
-bun run cp2               # workflow determinístico (exercício 1: exercicios/01-checar-duplicidade.md)
+bun run cp2               # workflow determinístico
 bun run cp3               # agente com tools de leitura, imprime cada passo
 bun run cp4               # proposta com hash, aprovação, execução recusada se o hash muda
 bun run aprovar <hash>    # aprovação humana por CLI (aceita prefixo de 8+ caracteres; --sim pula a pergunta)
@@ -90,12 +95,12 @@ curl -s -X POST http://localhost:3333/mcp -H 'Content-Type: application/json' -H
 ### Eval (cp8)
 
 ```bash
-EVAL_MODELS=gpt-4.1-nano,gpt-4.1-mini bun run eval   # modelos separados por vírgula
+EVAL_MODELS=openai/gpt-4.1-nano,openai/gpt-4.1-mini bun run eval   # modelos separados por vírgula (ids do OpenRouter)
 EVAL_CASOS=c13 bun run eval                          # só alguns casos (não grava arquivo)
 EVAL_MODOS=agente bun run eval                       # só um dos modos
 ```
 
-Resultado aceito = decisão e valor corretos e nenhuma violação da guarda. O eval grava `evals/resultados/<data>.json` (com a tabela em Markdown dentro) e imprime a tabela. Os números do repo estão em `evals/resultados/`. O p95 é por posição (nearest-rank), então com 12 casos ele é o pior caso. Exercício 2: `exercicios/02-caso-que-derruba.md`.
+Resultado aceito = decisão e valor corretos e nenhuma violação da guarda. O eval grava `evals/resultados/<data>.json` (com a tabela em Markdown dentro) e imprime a tabela. Os números do repo estão em `evals/resultados/`. O p95 é por posição (nearest-rank), então com 12 casos ele é o pior caso. O `c13` é o exemplo do Exercício 5 da prática.
 
 ## Domínio
 
@@ -128,3 +133,7 @@ bun install && bun run reset
 ```
 
 Para voltar ao fim: `git checkout main`.
+
+## Uso
+
+Material didático da Delta Academy. Caso, dados e política são fictícios.

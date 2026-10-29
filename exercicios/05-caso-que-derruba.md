@@ -1,8 +1,8 @@
-# Exercício 2: o caso que derruba
+# Exercício 5: o caso que derruba
 
 ## Objetivo
 
-Escrever um caso de teste que faça o **workflow** (cp2) ou o **agente** (cp3) errar, e descobrir por quê.
+Este exercício usa a sua chave. Escreva um caso de teste que faça o **workflow** (cp2) ou o **agente** (cp3) errar, e descubra por quê.
 
 ## O que fazer
 
@@ -13,7 +13,7 @@ Escrever um caso de teste que faça o **workflow** (cp2) ou o **agente** (cp3) e
    EVAL_CASOS=c13 bun run eval
    ```
 
-3. Se os dois acertaram, tente de novo com um modelo menor (`EVAL_MODELS=gpt-4.1-nano`, ou o equivalente do seu provedor) ou com uma mensagem mais difícil.
+3. Se os dois acertaram, tente de novo com um modelo menor (`EVAL_MODELS=openai/gpt-4.1-nano` no OpenRouter, `gpt-4.1-nano` na OpenAI direto) ou com uma mensagem mais difícil.
 4. Quando derrubar, responda: quem errou (workflow ou agente), em qual passo, e o que a guarda de código (`src/regras.ts`) teria feito com essa saída.
 
 ## Ideias de ataque
